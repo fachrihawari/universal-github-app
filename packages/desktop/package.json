@@ -1,0 +1,41 @@
+{
+  "name": "@app/desktop",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "concurrently \"tsc\" \"lerna run start --scope @app/web\" \"electron ./app/main.js\"",
+    "watch": "tsc -w",
+    "build": "yarn build:pre && tsc && yarn build:post",
+    "build:post": "cp -R ../web/build/ ./www",
+    "build:pre": "lerna run build --scope @app/web",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "pack": "yarn build && electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "main": "./app/main.js",
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "electron": "^6.0.0",
+    "electron-builder": "^21.2.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "build": {
+    "appId": "id.hawari.universalapp",
+    "productName": "universalapp",
+    "files": [
+      "./app/**/*",
+      "./www/**/*"
+    ],
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": "snap",
+      "category": "Development"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
