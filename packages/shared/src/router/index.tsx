@@ -1,25 +1,32 @@
-import { createAppContainer, createStackNavigator } from './navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from './navigation'
 
-import HomeScreen from "../screens/HomeScreen";
-import AboutScreen from "../screens/AboutScreen";
+import LoginScreen from '../screens/auth/login/index';
+import OTPScreen from '../screens/auth/otp/index';
+import PasswordScreen from '../screens/auth/password/index';
+import LoaderScreen from '../screens/loader/index';
+import CommitScreen from '../screens/main/commit';
+import HomeScreen from '../screens/main/home';
 
+const authNavigator = createStackNavigator({
+  Login: LoginScreen,
+  Password: PasswordScreen,
+  OTP: OTPScreen,
+});
 
-const AppContainer = createAppContainer(
-  createStackNavigator(
-    {
-      Home: {
-        screen: HomeScreen,
-        path: ''
-      },
-      About: {
-        screen: AboutScreen,
-        path: 'about'
-      }
-    },
-    {
-      initialRouteName: 'Home',
-    },
-  ),
-)
+const mainNavigator = createStackNavigator({
+  Home: HomeScreen,
+  Commit: CommitScreen
+});
 
-export default AppContainer
+const AppNavigator = createSwitchNavigator(
+  {
+    Loader: LoaderScreen,
+    Auth: authNavigator,
+    Main: mainNavigator
+  },
+  {
+    initialRouteName: 'Loader'
+  }
+);
+
+export const AppContainer = createAppContainer(AppNavigator);

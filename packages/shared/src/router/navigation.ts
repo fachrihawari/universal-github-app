@@ -1,1 +1,1 @@
-export { createAppContainer, createStackNavigator } from 'react-navigation'
+export { createAppContainer, createStackNavigator, createSwitchNavigator, NavigationContext, NavigationScreenProp, NavigationRoute } from 'react-navigation'
