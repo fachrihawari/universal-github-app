@@ -6,6 +6,7 @@ import { NavigationContext, NavigationScreenProp, NavigationRoute } from "../../
 import Button from '../../../components/Button';
 import Touchable from '../../../components/Touchable';
 import { logout } from '../../../store/auth/action';
+import { resetCommit } from '../../../store/repository/action';
 import style from './style';
 
 function HomeScreen() {
@@ -28,6 +29,7 @@ function HomeScreen() {
       return Alert.alert('Repository Name required!');
     }
 
+    dispatch(resetCommit())
     navigation.navigate('Commit', {
       repository
     });

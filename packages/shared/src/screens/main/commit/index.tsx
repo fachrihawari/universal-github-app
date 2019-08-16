@@ -19,7 +19,7 @@ function CommitScreen() {
   );
 
   useEffect(() => {
-    handleFetchCommit()
+    handleFetchCommit(null, true)
     navigation.setParams({
       handleLogout: () => {
         dispatch(logout());
@@ -28,10 +28,10 @@ function CommitScreen() {
     });
   }, []);
 
-  function handleFetchCommit() {
-    if (isLoading) { return; }
+  function handleFetchCommit(info: { distanceFromEnd: number }, resetPage = false) {
+    if (isLoading) return
 
-    const nextPage = page + 1
+    const nextPage =  resetPage ? 1 : page + 1
     dispatch(fetchCommitRequest(repository, nextPage, perPage));
   }
 
@@ -50,7 +50,7 @@ function CommitScreen() {
         data={commits}
         keyExtractor={(item: ICommit) => item.sha}
         renderItem={_renderItem}
-        onEndReached={handleFetchCommit.bind(null)}
+        onEndReached={handleFetchCommit}
         ListFooterComponent={_renderFooter}
         onEndReachedThreshold={0.5}
         initialNumToRender={10}

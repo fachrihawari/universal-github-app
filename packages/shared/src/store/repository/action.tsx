@@ -1,6 +1,5 @@
 import { createAction } from '../helpers';
-import { FETCH_COMMIT_BEGIN, FETCH_COMMIT_FAILURE, FETCH_COMMIT_REQUEST, FETCH_COMMIT_SUCCESS } from './constant';
-import { ICommit } from './reducer';
+import { FETCH_COMMIT_BEGIN, FETCH_COMMIT_FAILURE, FETCH_COMMIT_REQUEST, FETCH_COMMIT_SUCCESS, RESET_COMMIT } from './constant';
 
 export const fetchCommitRequest = (
   repository: string,
@@ -14,3 +13,5 @@ export const fetchCommitBegin = () => createAction(FETCH_COMMIT_BEGIN);
 export const fetchCommitSuccess = (commits: object[], currentPage: number) => createAction(FETCH_COMMIT_SUCCESS, { commits, currentPage });
 
 export const fetchCommitFailure = (error: string) => createAction(FETCH_COMMIT_FAILURE, { error });
+
+export const resetCommit = () => createAction(RESET_COMMIT)
